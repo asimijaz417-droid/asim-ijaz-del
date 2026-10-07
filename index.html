@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Ferrari Showroom | Luxury Cars</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #070707;
+            color: white;
+            font-family: Arial, sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* NAVBAR */
+
+        .navbar {
+            background: rgba(0, 0, 0, 0.92);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 0, 0, 0.4);
+        }
+
+        .navbar-brand {
+            color: #ff2020 !important;
+            font-size: 28px;
+            font-weight: bold;
+            letter-spacing: 3px;
+        }
+
+        .nav-link {
+            color: white !important;
+            margin: 0 10px;
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: "";
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: #ff2020;
+            left: 50%;
+            bottom: 0;
+            transition: 0.4s;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+            left: 0;
+        }
+
+        .nav-link:hover {
+            color: #ff2020 !important;
+        }
+
+        /* HERO */
+
+        .hero {
+            min-height: 75vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            background:
+                radial-gradient(circle at center,
+                    rgba(255, 0, 0, 0.18),
+                    transparent 45%),
+                #070707;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            width: 350px;
+            height: 350px;
+            border: 1px solid rgba(255, 0, 0, 0.4);
+            border-radius: 50%;
+            animation: rotateCircle 10s linear infinite;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            animation: heroShow 1.5s ease;
+        }
+
+        .hero h1 {
+            font-size: clamp(45px, 8vw, 90px);
+            font-weight: 900;
+            letter-spacing: 8px;
+            text-transform: uppercase;
+        }
+
+        .hero h1 span {
+            color: #ff1717;
+            text-shadow: 0 0 20px rgba(255, 0, 0, 0.7);
+        }
+
+        .hero p {
+            color: #bbb;
+            font-size: 18px;
+            letter-spacing: 4px;
+        }
+
+        .hero-btn {
+            display: inline-block;
+            margin-top: 25px;
+            padding: 13px 35px;
+            color: white;
+            text-decoration: none;
+            border: 1px solid #ff2020;
+            position: relative;
+            overflow: hidden;
+            transition: 0.4s;
+        }
+
+        .hero-btn::before {
+            content: "";
+            position: absolute;
+            width: 0;
+            height: 100%;
+            background: #ff2020;
+            left: 0;
+            top: 0;
+            z-index: -1;
+            transition: 0.4s;
+        }
+
+        .hero-btn:hover::before {
+            width: 100%;
+        }
+
+        .hero-btn:hover {
+            color: white;
+            box-shadow: 0 0 25px rgba(255, 0, 0, 0.6);
+        }
+
+        /* CARS SECTION */
+
+        .cars-section {
+            padding: 80px 0;
+            background: #0b0b0b;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title h2 {
+            font-size: 45px;
+            text-transform: uppercase;
+            font-weight: 800;
+        }
+
+        .section-title span {
+            color: #ff2020;
+        }
+
+        .section-title p {
+            color: #888;
+        }
+
+        /* CARD */
+
+        .car-card {
+            height: 100%;
+            background: #111;
+            border: 1px solid #252525;
+            position: relative;
+            overflow: hidden;
+            transition: 0.5s;
+            animation: cardShow 1s ease both;
+        }
+
+        .car-card::before {
+            content: "";
+            position: absolute;
+            width: 150%;
+            height: 2px;
+            background: linear-gradient(90deg,
+                    transparent,
+                    #ff0000,
+                    transparent);
+            top: 0;
+            left: -25%;
+            transition: 0.5s;
+        }
+
+        .car-card::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg,
+                    rgba(255, 0, 0, 0.12),
+                    transparent 40%);
+            opacity: 0;
+            transition: 0.5s;
+            pointer-events: none;
+        }
+
+        .car-card:hover {
+            transform: translateY(-15px);
+            border-color: #ff2020;
+            box-shadow:
+                0 20px 50px rgba(0, 0, 0, 0.8),
+                0 0 30px rgba(255, 0, 0, 0.2);
+        }
+
+        .car-card:hover::before {
+            animation: lineMove 1.5s linear infinite;
+        }
+
+        .car-card:hover::after {
+            opacity: 1;
+        }
+
+        /* IMAGE */
+
+        .car-img {
+            height: 280px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .car-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: 0.7s;
+        }
+
+        .car-card:hover .car-img img {
+            transform: scale(1.1);
+        }
+
+        .car-img::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(transparent 50%,
+                    rgba(0, 0, 0, 0.8));
+        }
+
+        /* CONTENT */
+
+        .car-content {
+            padding: 25px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .car-content h3 {
+            font-size: 27px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .car-content h3 span {
+            color: #ff2020;
+        }
+
+        .car-content p {
+            color: #999;
+            line-height: 1.7;
+        }
+
+        .car-info {
+            display: flex;
+            justify-content: space-between;
+            border-top: 1px solid #292929;
+            border-bottom: 1px solid #292929;
+            padding: 15px 0;
+            margin: 20px 0;
+        }
+
+        .car-info div {
+            text-align: center;
+        }
+
+        .car-info strong {
+            display: block;
+            color: #ff2020;
+            font-size: 18px;
+        }
+
+        .car-info small {
+            color: #777;
+        }
+
+        .details-btn {
+            display: block;
+            text-align: center;
+            padding: 12px;
+            color: white;
+            text-decoration: none;
+            border: 1px solid #ff2020;
+            transition: 0.4s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .details-btn::before {
+            content: "";
+            position: absolute;
+            background: #ff2020;
+            width: 0;
+            height: 100%;
+            left: 0;
+            top: 0;
+            transition: 0.4s;
+            z-index: -1;
+        }
+
+        .details-btn:hover::before {
+            width: 100%;
+        }
+
+        .details-btn:hover {
+            color: white;
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+        }
+
+        /* FOOTER */
+
+        footer {
+            padding: 30px;
+            text-align: center;
+            background: #050505;
+            border-top: 1px solid #222;
+            color: #777;
+        }
+
+        footer span {
+            color: #ff2020;
+        }
+
+        /* ANIMATIONS */
+
+        @keyframes rotateCircle {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes heroShow {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes cardShow {
+            from {
+                opacity: 0;
+                transform: translateY(60px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes lineMove {
+            from {
+                transform: translateX(-100%);
+            }
+
+            to {
+                transform: translateX(100%);
+            }
+        }
+
+        /* RESPONSIVE */
+
+        @media(max-width: 768px) {
+
+            .hero {
+                min-height: 60vh;
+            }
+
+            .hero h1 {
+                letter-spacing: 3px;
+            }
+
+            .section-title h2 {
+                font-size: 35px;
+            }
+
+            .car-img {
+                height: 250px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container">
+
+            <a class="navbar-brand" href="#">
+                FERRARI
+            </a>
+
+            <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#menu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="menu">
+
+                <ul class="navbar-nav ms-auto">
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#home">Home</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#cars">Cars</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">About</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </div>
+    </nav>
+
+
+    <!-- HERO -->
+
+    <section class="hero" id="home">
+
+        <div class="hero-content">
+
+            <h1>
+                Ferrari <span>Showroom</span>
+            </h1>
+
+            <p>
+                THE ART OF SPEED & PERFORMANCE
+            </p>
+
+            <a href="#cars" class="hero-btn">
+                EXPLORE CARS
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- CARS -->
+
+    <section class="cars-section" id="cars">
+
+        <div class="container">
+
+            <div class="section-title">
+
+                <h2>
+                    Our <span>Collection</span>
+                </h2>
+
+                <p>
+                    Discover the world's most beautiful Ferrari machines.
+                </p>
+
+            </div>
+
+
+            <div class="row g-4">
+
+
+                <!-- CARD 1 -->
+
+                <div class="col-lg-4 col-md-6">
+
+                    <div class="car-card">
+
+                        <div class="car-img">
+
+                            <img src="/ferrari img/black(1).avif" alt="Ferrari Black">
+
+                        </div>
+
+                        <div class="car-content">
+
+                            <h3>
+                                Ferrari <span>LaFerrari</span>
+                            </h3>
+
+                            <p>
+                                An iconic Ferrari supercar combining
+                                aggressive design with incredible hybrid
+                                performance.
+                            </p>
+
+                            <div class="car-info">
+
+                                <div>
+                                    <strong>950 HP</strong>
+                                    <small>Power</small>
+                                </div>
+
+                                <div>
+                                    <strong>350 KM/H</strong>
+                                    <small>Top Speed</small>
+                                </div>
+
+                                <div>
+                                    <strong>2.6s</strong>
+                                    <small>0-100</small>
+                                </div>
+
+                            </div>
+
+                            <a href="#" class="details-btn">
+                                VIEW DETAILS
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- CARD 2 -->
+
+                <div class="col-lg-4 col-md-6">
+
+                    <div class="car-card">
+
+                        <div class="car-img">
+
+                            <img src="/ferrari img/red(1).avif" alt="Ferrari Red">
+
+                        </div>
+
+                        <div class="car-content">
+
+                            <h3>
+                                Ferrari <span>488 GTB</span>
+                            </h3>
+
+                            <p>
+                                A stunning V8 Ferrari delivering breathtaking
+                                acceleration and exceptional driving dynamics.
+                            </p>
+
+                            <div class="car-info">
+
+                                <div>
+                                    <strong>661 HP</strong>
+                                    <small>Power</small>
+                                </div>
+
+                                <div>
+                                    <strong>330 KM/H</strong>
+                                    <small>Top Speed</small>
+                                </div>
+
+                                <div>
+                                    <strong>3.0s</strong>
+                                    <small>0-100</small>
+                                </div>
+
+                            </div>
+
+                            <a href="#" class="details-btn">
+                                VIEW DETAILS
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- CARD 3 -->
+
+                <div class="col-lg-4 col-md-6">
+
+                    <div class="car-card">
+
+                        <div class="car-img">
+
+                            <img src="/ferrari img/green(1).avif" alt="Ferrari Supercar">
+
+                        </div>
+
+                        <div class="car-content">
+
+                            <h3>
+                                Ferrari <span>SF90</span>
+                            </h3>
+
+                            <p>
+                                Ferrari's revolutionary plug-in hybrid supercar
+                                engineered for extreme speed and precision.
+                            </p>
+
+                            <div class="car-info">
+
+                                <div>
+                                    <strong>986 HP</strong>
+                                    <small>Power</small>
+                                </div>
+
+                                <div>
+                                    <strong>340 KM/H</strong>
+                                    <small>Top Speed</small>
+                                </div>
+
+                                <div>
+                                    <strong>2.5s</strong>
+                                    <small>0-100</small>
+                                </div>
+
+                            </div>
+
+                            <a href="#" class="details-btn">
+                                VIEW DETAILS
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ABOUT -->
+
+    <section id="about" class="cars-section">
+
+        <div class="container text-center">
+
+            <div class="section-title">
+
+                <h2>
+                    Born <span>To Race</span>
+                </h2>
+
+                <p>
+                    Ferrari represents performance, luxury, technology
+                    and Italian automotive excellence.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- FOOTER -->
+
+    <footer id="contact">
+
+        <p>
+            © 2026 <span>Ferrari Showroom</span> | Luxury Performance Cars
+        </p>
+
+    </footer>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>
